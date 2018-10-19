@@ -1,0 +1,25 @@
+body{
+    font-family: 'Fredoka One', cursive;
+    background :url("../images3/gaming-pattern.png");
+}
+h1 {
+    font-family: 'Fascinate Inline', cursive;
+    color: rgb(17, 180, 235);
+}
+.jumbotron {
+    margin-top: 6%;
+    background-color:rgba(247, 244, 244, 0.897);
+    text-align: center;
+}
+#letterGuessed {
+    text-align: center;
+    margin: 5px 0;
+} 
+.guessButton {
+    margin: 10px 0;
+}
+.win {
+    font-family: 'Fascinate Inline', cursive;
+    color: rgb(17, 180, 235);
+    background: pink;
+}
