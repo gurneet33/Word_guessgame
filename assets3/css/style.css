@@ -27,8 +27,12 @@ h1 {
 }
 @keyframes example {
     from {background-color: pink;}
-    to {background-color: rgb(230, 126, 126);}
+    to {background-color: rgb(255, 110, 126);}
 }
 #confetti {
     height: 40px;
+}
+.wrongCss{
+    color: rgb(17, 180, 235);
+    background: pink;
 }

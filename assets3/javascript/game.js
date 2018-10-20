@@ -1,20 +1,21 @@
 var type = document.querySelector(".show");
-varinputValue = document.querySelector("input")
+var inputValue = document.querySelector("input")
 var gameOver = false;
-var wrongAnswer=0;
+var wrongAnswer= "";
+var wrongCounter = 0;
 var displayWinner = document.querySelector("h1");
-
+var displayWrong = document.querySelector("#wrong")
 
 // Create an array of words
     var words = [
         "dog",
         "monkey",
         "cat",
-        "lemur"
+        "lemur",
+        "skunk"
     ];
-    function resetInput() {
-        document.getElementById("guessedLetters").reset();
-        }
+
+    
     // Pick a random word
     var word = words[Math.floor(Math.random() * words.length)];
     var remainingLetters = word.length;
@@ -24,34 +25,39 @@ var displayWinner = document.querySelector("h1");
         answerArray[i] = "_";
         type.innerHTML = answerArray.join(" ");
     }
-    // function reset(){
-    //     gameOver = true;
-    //     document.getElementById("guessedLetters").reset();
-    // }
+    function reset(){
+        gameOver = true;
+        document.getElementById("placeholder").textContent = null
+    }
     if(!gameOver){ 
     document.onkeyup = function(event){
         var userGuess = event.key;
-        // type.innerHTML = userGuess;
-        
         for (var j = 0; j < word.length; j++) {
             if (word[j] === userGuess) {
                 answerArray[j] = userGuess;
                 remainingLetters--;
-                // type.innerHTML = answerArray.join(" ");
-            }   
+            }  
+            else {
+             wrongAnswer = userGuess;
+                wrongCounter++;
+                console.log(wrongAnswer);
+                displayWrong.innerHTML = wrongAnswer;
+                displayWrong.classList.add("wrongCss");
+            } 
         }
             if(remainingLetters==0){
                 gameOver = true;
-                // inputValue.addEventListener("change", function(){
-                //     resetInput();
+                // inputValue.innerHTML ="";
                 console.log(gameOver);
                 displayWinner.innerHTML = winner;
                 displayWinner.classList.add("win");
-                var audioElement = document.createElement("audio");
-                     audioElement.setAttribute("src", "/assets/captainplanet24.mp3");
+                
+                // var audioElement = document.createElement("audio");
+                //      audioElement.setAttribute("src", "/assets/captainplanet24.mp3");
             }      
         
         type.innerHTML = answerArray.join(" ");
+        inputValue.value = userGuess;
         // document.getElementById("letterGuessed").value = " ";
     
 }
