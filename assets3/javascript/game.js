@@ -19,6 +19,7 @@ var displayWinner = document.querySelector("h1");
     var word = words[Math.floor(Math.random() * words.length)];
     var remainingLetters = word.length;
     var answerArray = [];
+    var winner ="winner"
     for (var i = 0; i < word.length; i++) {
         answerArray[i] = "_";
         type.innerHTML = answerArray.join(" ");
@@ -44,8 +45,10 @@ var displayWinner = document.querySelector("h1");
                 // inputValue.addEventListener("change", function(){
                 //     resetInput();
                 console.log(gameOver);
+                displayWinner.innerHTML = winner;
                 displayWinner.classList.add("win");
-                
+                var audioElement = document.createElement("audio");
+                     audioElement.setAttribute("src", "/assets/captainplanet24.mp3");
             }      
         
         type.innerHTML = answerArray.join(" ");
