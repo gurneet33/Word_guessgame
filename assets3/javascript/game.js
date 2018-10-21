@@ -1,95 +1,108 @@
-var type = document.querySelector(".show");
+var typedDisplay = document.querySelector(".show");
 var inputValue = document.querySelector("input")
 var gameOver = false;
 var wrongAnswer= "";
-var wrongCounter = 0;
+var wrongMsg = document.getElementsByClassName("wrongMsg");
 var displayWinner = document.querySelector("h1");
-var displayWrong = document.querySelector("#wrong")
+var displayWrong = document.querySelector("#wrong");
+var allArray = [];
+var answerArray = [];
+var wrongArray1 = [];
+var wrongArray2 = [];
 
 // Create an array of words
     var words = [
         "dog",
         "monkey",
         "cat",
-        "lemur",
-        "skunk"
+        "goat",
+        "bear",
+        "bat"
     ];
 
-    
+
     // Pick a random word
-    var word = words[Math.floor(Math.random() * words.length)];
-    var remainingLetters = word.length;
+    var randomWord = words[Math.floor(Math.random() * words.length)];
+    var remainingLetters = randomWord.length;
     var answerArray = [];
     var winner ="winner"
-    for (var i = 0; i < word.length; i++) {
+
+    // to show wrong letters printed
+    function difference (array1, array2) {
+        var temp = [];        
+        for (var i in array1) {
+        if(array2.indexOf(array1[i]) === -1) temp.push(array1[i]);
+        }
+        for(i in array2) {
+        if(array1.indexOf(array2[i]) === -1) temp.push(array2[i]);
+        }
+        return temp.sort((a,b) => a-b);
+        }
+
+        function removeDoubles(string) {
+            var mapping = {};
+            var newString = '';
+            for (var i = 0; i < string.length; i++) {
+              if (!(string[i] in mapping)) {
+                newString += string[i];
+                mapping[string[i]] = true;
+              }
+            }
+            return newString;
+          }  
+          function initializeGame() { 
+           
+                inputValue.innerHtml =" ";
+                typedDisplay.innerHtml =" ";
+                gameStart = false;
+                randomWord = "";
+                displayWinner.innerHTML = "Play Again ";
+                displayWinner.classList.add("display")
+                displayWrong.innerHTML = "";
+                answerArray = randomWord;
+                wrongArray1 = [];
+                wrongArray2 = [];
+        }
+
+    for (var i = 0; i < randomWord.length; i++) {
         answerArray[i] = "_";
-        type.innerHTML = answerArray.join(" ");
+        typedDisplay.innerHTML = answerArray.join(" ");
     }
-    function reset(){
-        gameOver = true;
-        document.getElementById("placeholder").textContent = null
-    }
+
+    
     if(!gameOver){ 
     document.onkeyup = function(event){
         var userGuess = event.key;
-        for (var j = 0; j < word.length; j++) {
-            if (word[j] === userGuess) {
-                answerArray[j] = userGuess;
+        for (var i = 0; i < randomWord.length; i++) {
+            if (randomWord[i] === userGuess) {
+                answerArray[i] = userGuess;
                 remainingLetters--;
             }  
-            else {
-             wrongAnswer = userGuess;
-                wrongCounter++;
-                console.log(wrongAnswer);
-                displayWrong.innerHTML = wrongAnswer;
-                displayWrong.classList.add("wrongCss");
-            } 
         }
+        allArray.push(userGuess);
+        var wrongArray1 = difference(allArray, answerArray);
+        var wrongArray2 = removeDoubles(wrongArray1);
+        displayWrong.innerHTML = wrongArray2;
+        wrongMsg.textContent = "Wrong Letters!"
+        displayWrong.classList.add("wrongCss");
+        console.log(wrongArray2.length-1);
+        if((wrongArray2.length-1)===10){
+            initializeGame();
+        }     
             if(remainingLetters==0){
-                gameOver = true;
-                // inputValue.innerHTML ="";
+                gameOver = true; 
                 console.log(gameOver);
                 displayWinner.innerHTML = winner;
                 displayWinner.classList.add("win");
-                
                 // var audioElement = document.createElement("audio");
                 //      audioElement.setAttribute("src", "/assets/captainplanet24.mp3");
             }      
-        
-        type.innerHTML = answerArray.join(" ");
+        typedDisplay.innerHTML = answerArray.join(" ");
         inputValue.value = userGuess;
-        // document.getElementById("letterGuessed").value = " ";
     
-}
+        }
     }
 
 
 
-    // Set up the answer array
-
-
-
-    
-    
-    // // The game loop
-    // while (remainingLetters > 0) {
-    //     // Show the player their progress
-    //     alert(answerArray.join(" "));
-    //     // Get a guess from the player
-    //     var guess = prompt("Guess a letter, or click Cancel to stop playing");
-
-    //     if (guess === null) {
-    //         // Exit the game loop
-    //         break;
-    //     } else if (guess.length !== 1) {
-    //         alert("Please enter a single letter.");
-    //     } else {
-    //         // Update the game state with the guess
-            
-    //     }
-
-    //     // The end of the game loop
-    // }
-    // // Show the answer and congratulate the player
-    // alert(answerArray.join(" "));
-    // alert("Good job! The answer was " + word);
+   

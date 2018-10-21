@@ -33,6 +33,16 @@ h1 {
     height: 40px;
 }
 .wrongCss{
+    font-size: 21px;
     color: rgb(17, 180, 235);
     background: pink;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+.wrongMsg{
+    color: rgb(17, 180, 235);
+}
+.display {
+    font-family: 'Fascinate Inline', cursive;
+    color: rgb(17, 180, 235);
 }
